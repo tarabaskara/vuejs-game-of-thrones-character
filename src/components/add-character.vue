@@ -4,12 +4,17 @@
     <form>
       <label>Name:</label>
       <input type="text" v-model.lazy='gotChar.name' required />
+      <label>House:</label>
+      <select v-model="gotChar.house">
+        <option v-for="house in houses">{{ house }}</option>
+      </select>
       <label>Description:</label>
       <textarea v-model.lazy='gotChar.description'></textarea>
     </form>
     <div id="preview">
       <h3>Preview</h3>
       <p>Name: {{gotChar.name}}</p>
+      <p>House: {{gotChar.house}}</p>
       <p>Description:</p>
       <p>{{gotChar.description}}</p>
     </div>
@@ -23,8 +28,10 @@ export default {
     return {
       gotChar: {
         name: '',
-        description: ''
-      }
+        description: '',
+        house: ''
+      },
+      houses: ['Stark','Tully','Arryn','Lannister','Baratheon','Tyrell','Martell']
     }
   },
   methods: {
@@ -57,5 +64,12 @@ input[type="text"], textarea{
 }
 h3{
     margin-top: 10px;
+}
+#checkboxes input{
+  display: inline-block;
+}
+#checkboxes label{
+  display: inline-block;
+  margin-right: 10px;
 }
 </style>
