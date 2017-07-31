@@ -1,7 +1,7 @@
 <template>
   <div id="add-character">
     <h2>Add a New Character</h2>
-    <form>
+    <form v-if="!submitted">
       <label>Name:</label>
       <input type="text" v-model.lazy='gotChar.name' required />
       <label>House:</label>
@@ -10,7 +10,11 @@
       </select>
       <label>Description:</label>
       <textarea v-model.lazy='gotChar.description'></textarea>
+      <button v-on:click.prevent="post">Add character</button>
     </form>
+    <div v-if="submitted">
+      <h3>Thanks for adding a character</h3>
+    </div>
     <div id="preview">
       <h3>Preview</h3>
       <p>Name: {{gotChar.name}}</p>
@@ -31,11 +35,21 @@ export default {
         description: '',
         house: ''
       },
-      houses: ['Stark','Tully','Arryn','Lannister','Baratheon','Tyrell','Martell']
+      houses: ['Stark','Tully','Arryn','Lannister','Baratheon','Tyrell','Martell'],
+      submitted: false
     }
   },
   methods: {
-
+    post: function(){
+      this.$http.post('http://localhost:3000/characters',{
+        id: '3',
+        name: this.gotChar.name,
+        description: this.gotChar.description,
+        house: this.gotChar.house
+      }).then(function(data){
+        this.submitted = true;
+      });
+    }
   }
 }
 </script>
