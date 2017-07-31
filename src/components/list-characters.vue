@@ -2,7 +2,9 @@
   <div id="list-characters">
     <h1>All Characters</h1>
     <div v-for="character in characters" class="single-character">
-      <h2>{{character.name}}</h2>
+      <router-link v-bind:to="'/characters/' + character.id">
+        <h2>{{character.name}}</h2>
+      </router-link>
       <h3>House of {{character.house}}</h3>
       <p>{{character.description}}</p>
     </div>
